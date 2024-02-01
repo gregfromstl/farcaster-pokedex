@@ -23,6 +23,12 @@ export async function HydratedFrameButton<S>({
         const result = await onClick(
             frame as Frame<S> & { action: FrameAction }
         );
+        console.log(
+            (result ?? frame.url) +
+                `?state=${encodeURIComponent(
+                    JSON.stringify(frame.state)
+                )}&isRedirect=1&url=${encodeURIComponent(result ?? frame.url)}`
+        );
         redirect(
             (result ?? frame.url) +
                 `?state=${encodeURIComponent(
