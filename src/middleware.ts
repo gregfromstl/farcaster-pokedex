@@ -22,6 +22,7 @@ export async function middleware(request: NextRequest) {
         !parseInt(newUrl.searchParams.get("isRedirect") ?? "0") // this prevents infinite redirects
     ) {
         const body = await request.json();
+        console.log("Body: ", body);
         const trustedDataMessage = body.trustedData.messageBytes;
         const binaryData = new Uint8Array(
             trustedDataMessage
