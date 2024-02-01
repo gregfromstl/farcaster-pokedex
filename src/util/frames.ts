@@ -1,4 +1,29 @@
-export type FrameAction = {
+async function validateMessage(trustedDataMessage: string) {
+    const binaryData = new Uint8Array(
+        trustedDataMessage
+            .match(/.{1,2}/g)!
+            .map((byte: string) => parseInt(byte, 16))
+    );
+    const trustedDataResult = await fetch(
+        process.env.HUB_URL ??
+            "https://nemes.farcaster.xyz:2281/v1/validateMessage",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/octet-stream",
+            },
+            body: binaryData,
+        }
+    );
+    const trustedData = await trustedDataResult.json();
+    if (trustedData.valid) {
+        return trustedData;
+    } else {
+        throw new Error("Invalid message");
+    }
+}
+
+export type FrameActionResponse = {
     untrustedData: {
         fid: number;
         url: string;
@@ -11,6 +36,12 @@ export type FrameAction = {
             hash: string;
         };
     };
+    trustedData: {
+        messageBytes: string;
+    };
+};
+
+export type FrameAction = FrameActionResponse & {
     trustedData: {
         valid: boolean;
         message: {
@@ -51,10 +82,19 @@ export default class Frame<S> {
         url: string;
         initialState: S;
         currentState?: S;
-        action?: FrameAction;
+        action?: FrameActionResponse;
     }) {
         this.state = { ...initialState, ...currentState };
-        this.action = action;
+        if (action) {
+            const trustedData = validateMessage(
+                action.trustedData.messageBytes
+            );
+            trustedData.then((data) => {
+                this.action = action
+                    ? { ...action, trustedData: data }
+                    : undefined;
+            });
+        }
         this.url = url;
     }
 }
