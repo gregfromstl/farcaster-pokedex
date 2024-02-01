@@ -29,12 +29,12 @@ export async function HydratedFrameButton<S>({
                     JSON.stringify(frame.state)
                 )}&isRedirect=1&url=${encodeURIComponent(result ?? frame.url)}`
         );
-        redirect(
-            (result ?? frame.url) +
-                `?state=${encodeURIComponent(
-                    JSON.stringify(frame.state)
-                )}&isRedirect=1&url=${encodeURIComponent(result ?? frame.url)}`
-        );
+        // redirect(
+        //     (result ?? frame.url) +
+        //         `?state=${encodeURIComponent(
+        //             JSON.stringify(frame.state)
+        //         )}&isRedirect=1&url=${encodeURIComponent(result ?? frame.url)}`
+        // );
     };
 
     if (frame.action && frame.action.untrustedData.buttonIndex === index) {
