@@ -20,11 +20,9 @@ export async function HydratedFrameButton<S>({
 
     const fulfillAction = async (frame: Frame<S>) => {
         if (!frame.action) throw new Error("No action to fulfill");
-        console.log("fulfilling action");
         const result = await onClick(
             frame as Frame<S> & { action: FrameAction }
         );
-        console.log("complete");
         redirect(
             (result ?? frame.url) +
                 `?state=${encodeURIComponent(

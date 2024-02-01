@@ -9,6 +9,8 @@ export async function middleware(request: NextRequest) {
     // Create a new URL object from the request URL
     const newUrl = new URL(url);
 
+    console.log(newUrl.searchParams.get("isRedirect"));
+
     if (
         method === "POST" &&
         !parseInt(newUrl.searchParams.get("isRedirect") ?? "0") // this prevents infinite redirects
