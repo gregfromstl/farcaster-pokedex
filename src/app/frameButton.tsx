@@ -24,12 +24,19 @@ export async function HydratedFrameButton<S>({
         const result = await onClick(
             frame as Frame<S> & { action: FrameAction }
         );
-        redirect(
+        const redirectUrl =
             (result ?? frame.url) +
-                `?state=${encodeURIComponent(
-                    JSON.stringify(frame.state)
-                )}&isRedirect=1&url=${encodeURIComponent(result ?? frame.url)}`
-        );
+            `?state=${encodeURIComponent(
+                JSON.stringify(frame.state)
+            )}&isRedirect=1&url=${encodeURIComponent(result ?? frame.url)}`;
+
+        const bytes = new TextEncoder().encode(redirectUrl).length;
+        if (bytes > 256)
+            throw new Error(
+                "The redirect URL exceeds 256 bytes, consider reducing the size of your state and fetching more data only when its needed"
+            );
+
+        redirect(redirectUrl);
     };
 
     while (!frame.initialized) {
