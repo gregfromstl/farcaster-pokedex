@@ -33,7 +33,6 @@ export async function middleware(request: NextRequest) {
         "url",
         encodeURIComponent(process.env.BASE_URL ?? url)
     );
-    newUrl.searchParams.set("isRedirect", "1");
     return NextResponse.rewrite(newUrl);
 }
 
