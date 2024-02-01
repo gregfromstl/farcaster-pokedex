@@ -72,6 +72,7 @@ export default class Frame<S> {
     state: S;
     url: string;
     action?: FrameAction;
+    initialized = false;
 
     constructor({
         url,
@@ -93,7 +94,10 @@ export default class Frame<S> {
                 this.action = action
                     ? { ...action, trustedData: data }
                     : undefined;
+                this.initialized = true;
             });
+        } else {
+            this.initialized = true;
         }
         this.url = url;
     }

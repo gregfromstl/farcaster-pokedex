@@ -20,14 +20,9 @@ export async function HydratedFrameButton<S>({
 
     const fulfillAction = async (frame: Frame<S>) => {
         if (!frame.action) throw new Error("No action to fulfill");
+
         const result = await onClick(
             frame as Frame<S> & { action: FrameAction }
-        );
-        console.log(
-            (result ?? frame.url) +
-                `?state=${encodeURIComponent(
-                    JSON.stringify(frame.state)
-                )}&isRedirect=1&url=${encodeURIComponent(result ?? frame.url)}`
         );
         redirect(
             (result ?? frame.url) +
@@ -36,6 +31,10 @@ export async function HydratedFrameButton<S>({
                 )}&isRedirect=1&url=${encodeURIComponent(result ?? frame.url)}`
         );
     };
+
+    while (!frame.initialized) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+    }
 
     if (frame.action && frame.action.untrustedData.buttonIndex === index) {
         await fulfillAction(frame);
