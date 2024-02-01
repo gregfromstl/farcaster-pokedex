@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
                 }}
                 alt="Pokemon"
             />
-            What's your FID's Pokemon?
+            What&apos;s your FID&apos;s Pokemon?
         </div>,
         {
             width: 600,
