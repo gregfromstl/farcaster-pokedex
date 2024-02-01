@@ -3,13 +3,19 @@ import type { NextRequest } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
+    console.log(
+        "New request received in middleware",
+        request.url,
+        request.method
+    );
     const url = request.url;
     const method = request.method;
 
     // Create a new URL object from the request URL
     const newUrl = new URL(url);
 
-    console.log(newUrl.searchParams.get("isRedirect"));
+    console.log("Params: ", newUrl.searchParams);
+    console.log("Redirect:", newUrl.searchParams.get("isRedirect"));
 
     if (
         method === "POST" &&
