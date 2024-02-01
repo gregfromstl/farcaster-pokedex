@@ -55,6 +55,7 @@ export async function middleware(request: NextRequest) {
         "url",
         encodeURIComponent(process.env.BASE_URL ?? url)
     );
+    console.log("Now going to", newUrl.toString());
     return NextResponse.redirect(newUrl);
 }
 
