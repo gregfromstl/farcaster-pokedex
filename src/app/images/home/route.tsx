@@ -5,7 +5,6 @@ import { revalidatePath } from "next/cache";
 import satori from "satori";
 import sharp from "sharp";
 export const dynamic = "force-dynamic";
-export const runtime = "nodejs";
 
 const fontPath = join(process.cwd(), "PressStart.ttf");
 let fontData = fs.readFileSync(fontPath);
