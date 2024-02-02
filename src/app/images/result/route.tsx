@@ -1,6 +1,5 @@
 import satori from "satori";
 import { NextRequest, NextResponse } from "next/server";
-import { ImageResponse } from "next/og";
 import { join } from "path";
 import * as fs from "fs";
 import { revalidatePath } from "next/cache";

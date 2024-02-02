@@ -1,6 +1,4 @@
-import { NextFrame } from "@/util/frames";
-import InjectFrame from "../frame";
-import FrameImage from "../frameImage";
+import { Frame, FrameImage, FrameConfig } from "@devcaster/next/frames";
 export const dynamic = "force-dynamic";
 
 const getPokemon = async (fid: number) => {
@@ -17,7 +15,7 @@ const getPokemon = async (fid: number) => {
 };
 
 export default async function Result({ searchParams }: { searchParams: any }) {
-    const frame = new NextFrame<{
+    const frame = new FrameConfig<{
         fid: number;
     }>({ fid: -1 }, searchParams);
     if (frame.state.fid === -1) throw new Error("Failed to get FID");
@@ -26,7 +24,7 @@ export default async function Result({ searchParams }: { searchParams: any }) {
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <InjectFrame frame={frame}>
+            <Frame frame={frame}>
                 <FrameImage
                     src={`${process.env.BASE_URL}/images/result?id=${
                         pokemon?.id
@@ -34,7 +32,7 @@ export default async function Result({ searchParams }: { searchParams: any }) {
                         pokemon?.image || ""
                     )}`}
                 />
-            </InjectFrame>
+            </Frame>
         </main>
     );
 }
