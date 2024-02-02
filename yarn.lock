@@ -19,10 +19,10 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@devcaster/next@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@devcaster/next/-/next-1.0.0.tgz#316a73f3f46e794de80e85acf8419b6cd509e25f"
-  integrity sha512-N2gH6REWQHi4bsoR4p+qUdFHJr3Ac0KyBqe/0JhzT+g5dFMRVEpieYgyqT8SuDRgWIwJcAwZ23pcuWEB4UBR0Q==
+"@devcaster/next@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@devcaster/next/-/next-0.0.1.tgz#18f301ef9c9c880b21035d0e8c76c98c106cbe29"
+  integrity sha512-2pVjt7KqI+Ygn+/WAXIwfRmlvc/Ttbsx5MS0F+V7cjMi2MMu4QMrWSsbcmEz7ugSXNFCIby9DRNDSDYNNBzy7A==
   dependencies:
     next "14.1.0"
     react "^18.2.0"
